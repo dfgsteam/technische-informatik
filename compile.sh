@@ -28,6 +28,7 @@ as -o "$filename.o" "$file" && ld -o "$filename" "$filename.o"
 # Überprüfe, ob die Befehle erfolgreich waren
 if [ $? -eq 0 ]; then
     echo "Kompilierung und Linken erfolgreich. Ausführbare Datei: $filename"
+    ./$filename
     echo $?
 else
     echo "Fehler bei der Kompilierung oder dem Linken."
