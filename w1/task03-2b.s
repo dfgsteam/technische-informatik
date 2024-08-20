@@ -3,21 +3,27 @@
 .text
 
 _start:
-    li      a0, 0           # counter
     la      t0, LIST        # list
-    la      t1, LEN         # pointer
     lw      t4, LEN         # pointer
     li      t2, 0
+
+    li      a0, 200000      # lowest
+    li      a1, -200000     # highest
 
 LOOP:
     blt     t4, t2, END     # if index > len(list): END
     lw      t3, 0(t0)       # value from list
 
-    blt     t3, zero, COUNT # if value less than zero
+    blt     t3, a0, MIN     # if value less than minimum
+    blt     a1, t3, MAX     # if value bigger than maximum
     j LOOPEND               # go to LOOPEND
 
-COUNT:
-    addi    a0, a0, 1       # counter++
+MIN:
+    mv      a0, t3
+    j       LOOPEND         # go to LOOPEND
+
+MAX:
+    mv      t3, a1
     j       LOOPEND         # go to LOOPEND
 
 LOOPEND:
